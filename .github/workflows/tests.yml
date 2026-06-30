@@ -35,11 +35,14 @@ jobs:
           ln -sfn "$GITHUB_WORKSPACE" "$tap_dir"
           brew tap
 
+      # Scope to the formula, not the whole tap: a tap-wide `brew style` also
+      # shfmt-lints the bundled install.sh, which is a copy synced from the cli
+      # repo (and overwritten on every release), so linting it here is churn.
       - name: brew style
-        run: brew style stracktio/tap
+        run: brew style stracktio/tap/strackt
 
       - name: brew audit
-        run: brew audit --tap=stracktio/tap
+        run: brew audit stracktio/tap/strackt
 
   # Real install lane: downloads the live release phar, verifies its sha256
   # (brew install checks the resource digest), runs the formula's `test do`
