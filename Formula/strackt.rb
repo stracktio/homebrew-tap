@@ -7,17 +7,17 @@ class Strackt < Formula
   # on THIS (public) tap repo, because the cli source repo is private and its
   # release assets are not anonymously downloadable.
   url "https://github.com/stracktio/homebrew-tap/releases/download/v0.3.5/strackt-v0.3.5.phar"
+  version "0.3.5"
   sha256 "87a1c9b7e941628b11845cebf6c7e573a863a7bb4b1b4a56063c9efc4c91172f"
-  version "v0.3.5"
 
   depends_on "php"
 
   def install
-    libexec.install "strackt-#{version}.phar" => "strackt.phar"
+    libexec.install "strackt-v#{version}.phar" => "strackt.phar"
 
     (bin/"strackt").write <<~SH
       #!/bin/sh
-      exec "#{Formula["php"].opt_bin}/php" "#{libexec}/strackt.phar" "$@"
+      exec "#{formula_opt_bin("php")}/php" "#{libexec}/strackt.phar" "$@"
     SH
 
     chmod 0755, bin/"strackt"
