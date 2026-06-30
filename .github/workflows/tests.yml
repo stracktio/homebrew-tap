@@ -28,8 +28,12 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
-      - name: Tap this checkout as stracktio/tap
-        run: brew tap stracktio/tap "$GITHUB_WORKSPACE"
+      - name: Link this checkout into the Homebrew tap path
+        run: |
+          tap_dir="$(brew --repository)/Library/Taps/stracktio/homebrew-tap"
+          mkdir -p "$(dirname "$tap_dir")"
+          ln -sfn "$GITHUB_WORKSPACE" "$tap_dir"
+          brew tap
 
       - name: brew style
         run: brew style stracktio/tap
@@ -38,9 +42,8 @@ jobs:
         run: brew audit --tap=stracktio/tap
 
   # Real install lane: downloads the live release phar, verifies its sha256
-  # (brew install checks the bottle/resource digest), runs the formula's
-  # `test do` block, and smoke-tests the wrapper. macOS is the target users
-  # actually install on.
+  # (brew install checks the resource digest), runs the formula's `test do`
+  # block, and smoke-tests the wrapper. macOS is the target users install on.
   install:
     name: install + test (macOS)
     runs-on: macos-latest
@@ -51,8 +54,12 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
-      - name: Tap this checkout as stracktio/tap
-        run: brew tap stracktio/tap "$GITHUB_WORKSPACE"
+      - name: Link this checkout into the Homebrew tap path
+        run: |
+          tap_dir="$(brew --repository)/Library/Taps/stracktio/homebrew-tap"
+          mkdir -p "$(dirname "$tap_dir")"
+          ln -sfn "$GITHUB_WORKSPACE" "$tap_dir"
+          brew tap
 
       - name: brew install
         run: brew install --verbose stracktio/tap/strackt
