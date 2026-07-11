@@ -6,8 +6,8 @@ class Strackt < Formula
   # here on every tag (the version is scanned from the URL). The phar is
   # published as a release asset on THIS (public) tap repo, because the cli
   # source repo is private and its release assets aren't anonymously downloadable.
-  url "https://github.com/stracktio/homebrew-tap/releases/download/v0.3.5/strackt-v0.3.5.phar"
-  sha256 "87a1c9b7e941628b11845cebf6c7e573a863a7bb4b1b4a56063c9efc4c91172f"
+  url "https://github.com/stracktio/homebrew-tap/releases/download/v0.4.0/strackt-v0.4.0.phar"
+  sha256 "6e8110778152c537430a99021bcb8f3c8eb8d42876d890c520f4834f3b10c859"
 
   depends_on "php"
 
